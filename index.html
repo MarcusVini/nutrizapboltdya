@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plano Personalizado 23</title>
+    <script>
+      // Definindo a variável browser globalmente antes de qualquer outro script
+      window.browser = window.browser || {
+        runtime: {
+          getManifest: () => ({}),
+          sendMessage: () => Promise.resolve(),
+          onMessage: {
+            addListener: () => {},
+            removeListener: () => {}
+          }
+        },
+        storage: {
+          local: {
+            get: () => Promise.resolve({}),
+            set: () => Promise.resolve(),
+            remove: () => Promise.resolve()
+          }
+        },
+        tabs: {
+          query: () => Promise.resolve([]),
+          sendMessage: () => Promise.resolve()
+        }
+      };
+
+      // Se estiver no Chrome, copiar algumas funcionalidades do chrome para browser
+      if (window.chrome) {
+        window.browser.runtime = window.browser.runtime || window.chrome.runtime;
+        window.browser.storage = window.browser.storage || window.chrome.storage;
+        window.browser.tabs = window.browser.tabs || window.chrome.tabs;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
